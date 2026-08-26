@@ -12,7 +12,7 @@ const AVATAR_COLOR_CLASS: Record<string, string> = {
   purple: "bg-purple-600",
   blue: "bg-blue-600",
   green: "bg-green-600",
-  red: "bg-red-600",
+  red: "bg-red-600",  
 };
 
 export default function CategoryPage() {
@@ -40,6 +40,7 @@ export default function CategoryPage() {
           )
         `)
         .eq("slug", category)
+        .eq("dishes.is_active", true)
         .order("sort_order", { referencedTable: "dishes", ascending: true })
         .single();
 
