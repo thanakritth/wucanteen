@@ -130,55 +130,111 @@ export default function DishTable({ refreshKey }: { refreshKey?: number }) {
               </td>
               <td className="px-4 py-3">฿{dish.price}</td>
               <td className="px-4 py-3 text-gray-500">
-                {!!dish.spice_level && " ".repeat(dish.spice_level)}
-                {!!dish.sugar_level && " ".repeat(dish.sugar_level)}
+                {!!dish.spice_level && "🌶️".repeat(dish.spice_level)}
+                {!!dish.sugar_level && "🍮".repeat(dish.sugar_level)}
                 {!dish.spice_level && !dish.sugar_level && "—"}
               </td>
               <td className="px-4 py-3 text-center">
                 {isAdmin ? (
-                  <>
+                  <div className="flex items-center justify-center gap-3">
+                    {/* ✏️ ปุ่ม Edit (ดินสอสีม่วง) */}
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setEditingDishId(dish.id);
                       }}
-                      className="mr-4 text-sm
-
-text-purple-600 hover:text-purple-700"
+                      className="p-1 text-purple-600 hover:text-purple-800 hover:scale-110 transition cursor-pointer"
+                      title="Edit dish"
                     >
-                      Edit
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4"
+                      >
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                        <path d="m15 5 4 4" />
+                      </svg>
                     </button>
 
+                    {/* 🗑️ ปุ่ม Remove (ถังขยะสีแดง) / Reactivate */}
                     {dish.is_active ? (
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           setRemovingDish(dish);
                         }}
-                        className="text-sm text-
-red-600 hover:text-red-700"
+                        className="p-1 text-red-500 hover:text-red-700 hover:scale-110 transition cursor-pointer"
+                        title="Remove dish"
                       >
-                        Remove
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-4 w-4"
+                        >
+                          <path d="M3 6h18" />
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                          <line x1="10" x2="10" y1="11" y2="17" />
+                          <line x1="14" x2="14" y1="11" y2="17" />
+                        </svg>
                       </button>
                     ) : (
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleReactivate(dish);
                         }}
                         disabled={reactivatingId === dish.id}
-                        className="text-sm text-green-600 hover:text-green-700 disabled:opacity-50"
+                        className="p-1 text-green-600 hover:text-green-800 hover:scale-110 transition cursor-pointer"
+                        title="Restore dish"
                       >
-                        {reactivatingId === dish.id
-                          ? "Restoring..."
-                          : "Reactivate"}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-4 w-4"
+                        >
+                          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                          <path d="M3 3v5h5" />
+                        </svg>
                       </button>
                     )}
-                  </>
+                  </div>
                 ) : (
-                  <span className="text-xs text-gray-400">
-                    {" "}
-                    <FontAwesomeIcon icon={faUserLock} />
+                  <span
+                    className="text-gray-400 text-xs"
+                    title="Staff view only"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mx-auto h-4 w-4"
+                    >
+                      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
                   </span>
                 )}
               </td>
